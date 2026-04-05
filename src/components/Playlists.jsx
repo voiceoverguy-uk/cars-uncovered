@@ -1,8 +1,10 @@
+import { useReveal } from '../hooks/useReveal';
 import './Playlists.css';
 
 export default function Playlists({ playlists, playlistMeta, loading }) {
   const CU_PLAYLIST_ID = 'PLbcF-Q38-czfGS4_xFdWReF6eP60a-LLV';
   const MW_PLAYLIST_ID = 'PLbcF-Q38-czfQOi9ERx-okrQHgedYqUBA';
+  const [ref, revealed] = useReveal();
 
   const cuVideos = playlists?.carsUncovered || [];
   const mwVideos = playlists?.mostWanted || [];
@@ -10,7 +12,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
   const mwMeta = playlistMeta?.mostWanted;
 
   return (
-    <section className="section playlists-section" id="playlists">
+    <section className={`section playlists-section reveal-section ${revealed ? 'revealed' : ''}`} id="playlists" ref={ref}>
       <div className="container">
         <div className="section-label">The Playlists</div>
         <div className="divider" />
@@ -24,6 +26,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
             playlistId={CU_PLAYLIST_ID}
             tag="Full Series"
             meta={cuMeta}
+            sectionRevealed={revealed}
           />
           <PlaylistBlock
             title="Most Wanted"
@@ -34,6 +37,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
             tag="Howard's Picks"
             accent
             meta={mwMeta}
+            sectionRevealed={revealed}
           />
         </div>
       </div>
@@ -41,7 +45,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
   );
 }
 
-function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta }) {
+function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta, sectionRevealed }) {
   const ytUrl = `https://www.youtube.com/playlist?list=${playlistId}`;
   const itemCount = meta?.itemCount;
 
@@ -85,7 +89,7 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
               </div>
             ))
           : videos.length > 0
-            ? videos.map(v => <VideoCard key={v.id} video={v} />)
+            ? videos.map((v, i) => <VideoCard key={v.id} video={v} index={i} sectionRevealed={sectionRevealed} />)
             : <FallbackCards playlistId={playlistId} />
         }
       </div>
@@ -93,13 +97,14 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
   );
 }
 
-function VideoCard({ video }) {
+function VideoCard({ video, index, sectionRevealed }) {
   return (
     <a
       href={`https://www.youtube.com/watch?v=${video.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="video-card"
+      className={`video-card reveal ${sectionRevealed ? 'revealed' : ''}`}
+      style={{ '--reveal-delay': `${index * 60}ms` }}
     >
       <div className="vc-thumb">
         <img src={video.thumbnailUrl} alt={video.title} loading="lazy" />

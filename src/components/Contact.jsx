@@ -1,8 +1,10 @@
+import { useReveal } from '../hooks/useReveal';
 import './Contact.css';
 
 export default function Contact() {
+  const [ref, revealed] = useReveal();
   return (
-    <section className="section contact-section" id="contact">
+    <section className={`section contact-section reveal-section ${revealed ? 'revealed' : ''}`} id="contact" ref={ref}>
       <div className="container">
         <div className="contact-grid">
           <div className="contact-left">

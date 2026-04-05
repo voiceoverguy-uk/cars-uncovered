@@ -54,7 +54,7 @@ button {
 }
 
 .section {
-  padding: 100px 0;
+  padding: 120px 0;
 }
 
 .section-label {
@@ -160,6 +160,29 @@ button {
 
 .animate-in {
   animation: fadeInUp 0.7s ease forwards;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-section.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {

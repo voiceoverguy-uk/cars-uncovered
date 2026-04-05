@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Marquee from './components/Marquee';
 import LatestVideo from './components/LatestVideo';
 import Playlists from './components/Playlists';
 import About from './components/About';
@@ -74,6 +75,7 @@ export default function App() {
     <div className="app">
       <Navbar />
       <Hero channelInfo={channelInfo} />
+      <Marquee />
       <LatestVideo video={latestVideo} loading={loading} error={error} />
       <Playlists playlists={playlists} playlistMeta={playlistMeta} loading={loading} />
       <About />

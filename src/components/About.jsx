@@ -1,8 +1,11 @@
+import { useReveal } from '../hooks/useReveal';
 import './About.css';
 
 export default function About() {
+  const [ref, revealed] = useReveal();
+
   return (
-    <section className="section about-section" id="about">
+    <section className={`section about-section reveal-section ${revealed ? 'revealed' : ''}`} id="about" ref={ref}>
       <div className="container">
         <div className="about-grid">
           <div className="about-image-col">
