@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import './Playlists.css';
 
@@ -98,21 +99,32 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
 }
 
 function VideoCard({ video, index, sectionRevealed }) {
+  const [playing, setPlaying] = useState(false);
+
   return (
-    <a
-      href={`https://www.youtube.com/watch?v=${video.id}`}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       className={`video-card reveal ${sectionRevealed ? 'revealed' : ''}`}
       style={{ '--reveal-delay': `${index * 60}ms` }}
     >
       <div className="vc-thumb">
-        <img src={video.thumbnailUrl} alt={video.title} loading="lazy" />
-        <div className="vc-play">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </div>
+        {playing ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="vc-iframe"
+          />
+        ) : (
+          <button className="vc-preview" onClick={() => setPlaying(true)}>
+            <img src={video.thumbnailUrl} alt={video.title} loading="lazy" />
+            <div className="vc-play">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </button>
+        )}
       </div>
       <div className="vc-info">
         <h4 className="vc-title">{video.title}</h4>
@@ -124,7 +136,7 @@ function VideoCard({ video, index, sectionRevealed }) {
           </span>
         )}
       </div>
-    </a>
+    </div>
   );
 }
 
