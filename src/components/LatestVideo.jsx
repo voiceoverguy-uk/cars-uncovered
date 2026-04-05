@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useReveal } from '../hooks/useReveal';
 import './LatestVideo.css';
 
 export default function LatestVideo({ video, loading, error }) {
   const [playing, setPlaying] = useState(false);
-  const [ref, revealed] = useReveal();
 
   if (loading) {
     return (
@@ -26,7 +24,7 @@ export default function LatestVideo({ video, loading, error }) {
 
   if (error === 'NO_API_KEY' || !video) {
     return (
-      <section className={`section latest-section reveal-section ${revealed ? 'revealed' : ''}`} id="latest" ref={ref}>
+      <section className="section latest-section" id="latest">
         <div className="container">
           <div className="section-label">Latest Upload</div>
           <div className="section-title">Latest From The Channel</div>
@@ -90,7 +88,7 @@ export default function LatestVideo({ video, loading, error }) {
   }
 
   return (
-    <section className={`section latest-section reveal-section ${revealed ? 'revealed' : ''}`} id="latest" ref={ref}>
+    <section className="section latest-section" id="latest">
       <div className="container">
         <div className="section-label">Latest Upload</div>
         <div className="divider" />
