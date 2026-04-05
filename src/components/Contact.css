@@ -99,7 +99,7 @@
 
 .contact-stat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border: 1px solid #1e1e1e;
   border-top: none;
   margin-bottom: 16px;

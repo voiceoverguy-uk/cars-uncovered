@@ -41,7 +41,7 @@ export default function About() {
                 Since launching in January 2016, Cars Uncovered has become the channel car buyers actually trust. No manufacturer money. No soft-pedalling bad cars. No endless positivity. Just Howard, a camera, and whatever car he happens to be standing next to that week.
               </p>
               <p>
-                From budget runabouts to dream machines, head-to-head comparisons to hidden buying tricks, Howard gives you the real story — so you can walk into a dealership knowing exactly what you're getting into. The result? Over <strong>8 million views</strong>, <strong>41,800 subscribers</strong>, and a community of car buyers who refuse to be messed around.
+                From budget runabouts to dream machines, head-to-head comparisons to hidden buying tricks, Howard gives you the real story — so you can walk into a dealership knowing exactly what you're getting into. The result? Over <strong>8 million views</strong> and a community of car buyers who refuse to be messed around.
               </p>
 
               <blockquote className="about-quote">

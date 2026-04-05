@@ -113,12 +113,6 @@ export default function Hero({ channelInfo }) {
 
         <div className="hero-stats">
           <StatItem
-            rawValue={subsRaw}
-            suffix="K"
-            label="Subscribers"
-            start={statsReady}
-          />
-          <StatItem
             rawValue={viewsRaw}
             suffix="M+"
             label="Total Views"

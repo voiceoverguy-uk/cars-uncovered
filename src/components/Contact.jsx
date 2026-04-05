@@ -12,7 +12,7 @@ export default function Contact() {
             <div className="divider" />
             <h2 className="section-title">Partnerships &amp; Press</h2>
             <p className="contact-intro">
-              Cars Uncovered reaches over 41,800 engaged car buyers across the UK and beyond.
+              Cars Uncovered reaches a highly engaged audience of car buyers across the UK and beyond.
               If you want honest, authentic exposure to an audience that actually listens —
               Howard's your person.
             </p>
@@ -85,7 +85,6 @@ export default function Contact() {
 
             <div className="contact-stat-grid">
               {[
-                { v: '41.8K', l: 'Subscribers' },
                 { v: '8M+', l: 'Total Views' },
                 { v: '71', l: 'Videos' },
                 { v: '2016', l: 'Est.' },
@@ -105,7 +104,7 @@ export default function Contact() {
             >
               <div className="subscribe-text">
                 <strong>Like what you see?</strong>
-                <span>Join 41,800+ subscribers who get notified when Howard reviews something great.</span>
+                <span>Join the community and get notified when Howard reviews something great.</span>
               </div>
               <div className="subscribe-btn">Subscribe</div>
             </a>
