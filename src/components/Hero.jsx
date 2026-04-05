@@ -1,14 +1,62 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import './Hero.css';
 
-const STATS = [
-  { value: '41.8K', label: 'Subscribers' },
-  { value: '8M+', label: 'Views' },
-  { value: '71', label: 'Videos' },
-];
+function useCountUp(target, duration = 2000, start = false) {
+  const [value, setValue] = useState(0);
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    if (!start || !target) return;
+
+    const startTime = performance.now();
+    const startVal = 0;
+
+    function easeOut(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOut(progress);
+      setValue(Math.round(startVal + (target - startVal) * eased));
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setValue(target);
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [target, duration, start]);
+
+  return value;
+}
+
+function StatItem({ rawValue, suffix, label, start, decimals = 0 }) {
+  const animated = useCountUp(rawValue, 2000, start);
+
+  let display;
+  if (rawValue >= 1_000_000) {
+    display = (animated / 1_000_000).toFixed(decimals || 1) + suffix;
+  } else if (rawValue >= 1_000) {
+    display = (animated / 1_000).toFixed(decimals || 1) + suffix;
+  } else {
+    display = animated.toString() + suffix;
+  }
+
+  return (
+    <div className="hero-stat">
+      <span className="hero-stat-value">{display}</span>
+      <span className="hero-stat-label">{label}</span>
+    </div>
+  );
+}
 
 export default function Hero({ channelInfo }) {
   const [visible, setVisible] = useState(false);
+  const [statsReady, setStatsReady] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -16,13 +64,16 @@ export default function Hero({ channelInfo }) {
     return () => clearTimeout(t);
   }, []);
 
-  const stats = channelInfo
-    ? [
-        { value: formatSubs(channelInfo.subscriberCount), label: 'Subscribers' },
-        { value: formatViews(channelInfo.viewCount), label: 'Total Views' },
-        { value: channelInfo.videoCount, label: 'Videos' },
-      ]
-    : STATS;
+  useEffect(() => {
+    if (visible) {
+      const t = setTimeout(() => setStatsReady(true), 600);
+      return () => clearTimeout(t);
+    }
+  }, [visible]);
+
+  const subsRaw = channelInfo ? parseInt(channelInfo.subscriberCount, 10) : 41800;
+  const viewsRaw = channelInfo ? parseInt(channelInfo.viewCount, 10) : 8147400;
+  const videosRaw = channelInfo ? parseInt(channelInfo.videoCount, 10) : 71;
 
   return (
     <section className="hero" id="hero" ref={ref}>
@@ -41,10 +92,7 @@ export default function Hero({ channelInfo }) {
         </p>
 
         <div className="hero-cta">
-          <a
-            href="#latest"
-            className="btn-primary"
-          >
+          <a href="#latest" className="btn-primary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8 5v14l11-7z"/>
             </svg>
@@ -64,12 +112,24 @@ export default function Hero({ channelInfo }) {
         </div>
 
         <div className="hero-stats">
-          {stats.map(s => (
-            <div className="hero-stat" key={s.label}>
-              <span className="hero-stat-value">{s.value}</span>
-              <span className="hero-stat-label">{s.label}</span>
-            </div>
-          ))}
+          <StatItem
+            rawValue={subsRaw}
+            suffix="K"
+            label="Subscribers"
+            start={statsReady}
+          />
+          <StatItem
+            rawValue={viewsRaw}
+            suffix="M+"
+            label="Total Views"
+            start={statsReady}
+          />
+          <StatItem
+            rawValue={videosRaw}
+            suffix=""
+            label="Videos"
+            start={statsReady}
+          />
         </div>
       </div>
 
@@ -79,17 +139,4 @@ export default function Hero({ channelInfo }) {
       </div>
     </section>
   );
-}
-
-function formatSubs(n) {
-  const num = parseInt(n, 10);
-  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-  return num.toString();
-}
-
-function formatViews(n) {
-  const num = parseInt(n, 10);
-  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M+`;
-  if (num >= 1000) return `${(num / 1000).toFixed(0)}K+`;
-  return num.toString();
 }
