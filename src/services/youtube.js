@@ -1,6 +1,5 @@
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 const CHANNEL_HANDLE = 'carsuncoveredofficial';
-const UPLOADS_PLAYLIST_ID = 'UUbcF-Q38-czfGS4_xFdWReF6eP60a-LLV';
 
 const PLAYLISTS = {
   carsUncovered: {
@@ -52,10 +51,10 @@ export async function getChannelInfo() {
 }
 
 export async function getLatestVideo(uploadsPlaylistId) {
-  const playlistId = uploadsPlaylistId || 'UUbcF-Q38-czfGS4_xFdWReF6eP60a-LLV';
+  if (!uploadsPlaylistId) return null;
   const data = await apiRequest('playlistItems', {
     part: 'snippet,contentDetails',
-    playlistId,
+    playlistId: uploadsPlaylistId,
     maxResults: '1'
   });
   if (!data.items?.length) return null;
@@ -115,23 +114,3 @@ export async function getPlaylistInfo(playlistId) {
 }
 
 export { PLAYLISTS };
-
-export function formatCount(count) {
-  if (!count) return '0';
-  const n = parseInt(count, 10);
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
-  return n.toString();
-}
-
-export function timeAgo(dateStr) {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = (now - date) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  if (diff < 2592000) return `${Math.floor(diff / 86400)}d ago`;
-  if (diff < 31536000) return `${Math.floor(diff / 2592000)}mo ago`;
-  return `${Math.floor(diff / 31536000)}y ago`;
-}

@@ -4,7 +4,7 @@ A slick, modern website for Howard Ritchie's Cars Uncovered YouTube channel (41.
 
 ## Tech Stack
 
-- **Frontend**: React 19 + Vite 6
+- **Frontend**: React 19 + Vite 8
 - **Styling**: Plain CSS (Barlow Condensed + Barlow fonts)
 - **Data**: YouTube Data API v3 (live updates)
 - **Port**: 5000
