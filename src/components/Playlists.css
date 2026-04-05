@@ -35,7 +35,7 @@
 .playlist-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
   color: var(--white);
