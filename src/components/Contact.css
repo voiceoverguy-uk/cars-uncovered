@@ -89,8 +89,7 @@
 }
 
 .contact-banner {
-  position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .contact-banner img {
@@ -98,21 +97,12 @@
   display: block;
 }
 
-.contact-banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .contact-stat-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  padding: 24px;
-  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #1e1e1e;
+  border-top: none;
+  margin-bottom: 16px;
 }
 
 .contact-stat {
@@ -120,6 +110,12 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 20px 12px;
+  border-right: 1px solid #1e1e1e;
+}
+
+.contact-stat:last-child {
+  border-right: none;
 }
 
 .contact-stat-v {

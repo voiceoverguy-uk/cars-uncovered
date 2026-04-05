@@ -81,22 +81,22 @@ export default function Contact() {
           <div className="contact-right">
             <div className="contact-banner">
               <img src="/banner.jpg" alt="Cars Uncovered" />
-              <div className="contact-banner-overlay">
-                <div className="contact-stat-grid">
-                  {[
-                    { v: '41.8K', l: 'Subscribers' },
-                    { v: '8M+', l: 'Total Views' },
-                    { v: '71', l: 'Videos' },
-                    { v: '2016', l: 'Est.' },
-                  ].map(s => (
-                    <div className="contact-stat" key={s.l}>
-                      <span className="contact-stat-v">{s.v}</span>
-                      <span className="contact-stat-l">{s.l}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
+
+            <div className="contact-stat-grid">
+              {[
+                { v: '41.8K', l: 'Subscribers' },
+                { v: '8M+', l: 'Total Views' },
+                { v: '71', l: 'Videos' },
+                { v: '2016', l: 'Est.' },
+              ].map(s => (
+                <div className="contact-stat" key={s.l}>
+                  <span className="contact-stat-v">{s.v}</span>
+                  <span className="contact-stat-l">{s.l}</span>
+                </div>
+              ))}
+            </div>
+
             <a
               href="https://www.youtube.com/@carsuncoveredofficial?sub_confirmation=1"
               target="_blank"
