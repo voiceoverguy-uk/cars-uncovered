@@ -10,6 +10,7 @@ import {
   getChannelInfo,
   getLatestVideo,
   getPlaylistVideos,
+  getPlaylistInfo,
   PLAYLISTS
 } from './services/youtube';
 
@@ -17,6 +18,7 @@ export default function App() {
   const [channelInfo, setChannelInfo] = useState(null);
   const [latestVideo, setLatestVideo] = useState(null);
   const [playlists, setPlaylists] = useState({ carsUncovered: [], mostWanted: [] });
+  const [playlistMeta, setPlaylistMeta] = useState({ carsUncovered: null, mostWanted: null });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -36,16 +38,22 @@ export default function App() {
         const channelData = await getChannelInfo();
         setChannelInfo(channelData);
 
-        const [latest, cuVideos, mwVideos] = await Promise.allSettled([
+        const [latest, cuVideos, mwVideos, cuInfo, mwInfo] = await Promise.allSettled([
           getLatestVideo(channelData.uploadsPlaylistId),
           getPlaylistVideos(PLAYLISTS.carsUncovered.id, 8),
           getPlaylistVideos(PLAYLISTS.mostWanted.id, 8),
+          getPlaylistInfo(PLAYLISTS.carsUncovered.id),
+          getPlaylistInfo(PLAYLISTS.mostWanted.id),
         ]);
 
         if (latest.status === 'fulfilled') setLatestVideo(latest.value);
         setPlaylists({
           carsUncovered: cuVideos.status === 'fulfilled' ? cuVideos.value : [],
           mostWanted: mwVideos.status === 'fulfilled' ? mwVideos.value : [],
+        });
+        setPlaylistMeta({
+          carsUncovered: cuInfo.status === 'fulfilled' ? cuInfo.value : null,
+          mostWanted: mwInfo.status === 'fulfilled' ? mwInfo.value : null,
         });
       } catch (err) {
         console.error('YouTube API error:', err);
@@ -67,7 +75,7 @@ export default function App() {
       <Navbar />
       <Hero channelInfo={channelInfo} />
       <LatestVideo video={latestVideo} loading={loading} error={error} />
-      <Playlists playlists={playlists} loading={loading} />
+      <Playlists playlists={playlists} playlistMeta={playlistMeta} loading={loading} />
       <About />
       <Contact />
       <Footer />

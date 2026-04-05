@@ -98,6 +98,22 @@ export async function getPlaylistVideos(playlistId, maxResults = 8) {
   }));
 }
 
+export async function getPlaylistInfo(playlistId) {
+  const data = await apiRequest('playlists', {
+    part: 'snippet,contentDetails',
+    id: playlistId
+  });
+  if (!data.items?.length) return null;
+  const p = data.items[0];
+  return {
+    id: p.id,
+    title: p.snippet.title,
+    description: p.snippet.description,
+    thumbnailUrl: p.snippet.thumbnails?.high?.url || p.snippet.thumbnails?.medium?.url,
+    itemCount: p.contentDetails.itemCount
+  };
+}
+
 export { PLAYLISTS };
 
 export function formatCount(count) {

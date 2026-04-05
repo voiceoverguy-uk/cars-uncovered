@@ -1,11 +1,13 @@
 import './Playlists.css';
 
-export default function Playlists({ playlists, loading }) {
+export default function Playlists({ playlists, playlistMeta, loading }) {
   const CU_PLAYLIST_ID = 'PLbcF-Q38-czfGS4_xFdWReF6eP60a-LLV';
   const MW_PLAYLIST_ID = 'PLbcF-Q38-czfQOi9ERx-okrQHgedYqUBA';
 
   const cuVideos = playlists?.carsUncovered || [];
   const mwVideos = playlists?.mostWanted || [];
+  const cuMeta = playlistMeta?.carsUncovered;
+  const mwMeta = playlistMeta?.mostWanted;
 
   return (
     <section className="section playlists-section" id="playlists">
@@ -21,6 +23,7 @@ export default function Playlists({ playlists, loading }) {
             loading={loading}
             playlistId={CU_PLAYLIST_ID}
             tag="Full Series"
+            meta={cuMeta}
           />
           <PlaylistBlock
             title="Most Wanted"
@@ -30,6 +33,7 @@ export default function Playlists({ playlists, loading }) {
             playlistId={MW_PLAYLIST_ID}
             tag="Howard's Picks"
             accent
+            meta={mwMeta}
           />
         </div>
       </div>
@@ -37,8 +41,9 @@ export default function Playlists({ playlists, loading }) {
   );
 }
 
-function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent }) {
+function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta }) {
   const ytUrl = `https://www.youtube.com/playlist?list=${playlistId}`;
+  const itemCount = meta?.itemCount;
 
   return (
     <div className={`playlist-block ${accent ? 'accent' : ''}`}>
@@ -46,6 +51,20 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
         <div className="playlist-tag">{tag}</div>
         <h2 className="playlist-title">{title}</h2>
         <p className="playlist-subtitle">{subtitle}</p>
+
+        {(loading || itemCount !== undefined) && (
+          <div className="playlist-count">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
+              <rect x="2" y="7" width="20" height="15" rx="2" />
+              <polyline points="17,2 12,7 7,2" />
+            </svg>
+            {loading && !itemCount
+              ? <span className="count-skeleton" />
+              : <span>{itemCount} videos</span>
+            }
+          </div>
+        )}
+
         <a href={ytUrl} target="_blank" rel="noopener noreferrer" className="playlist-view-all">
           View Full Playlist
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">

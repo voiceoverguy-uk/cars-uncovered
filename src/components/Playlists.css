@@ -50,6 +50,28 @@
   margin-bottom: 24px;
 }
 
+.playlist-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.count-skeleton {
+  display: inline-block;
+  width: 60px;
+  height: 13px;
+  background: #2a2a2a;
+  border-radius: 3px;
+  animation: shimmer 1.5s infinite;
+}
+
 .playlist-view-all {
   display: inline-flex;
   align-items: center;
