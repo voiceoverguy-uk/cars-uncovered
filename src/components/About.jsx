@@ -48,7 +48,7 @@ export default function About() {
               <div className="about-pillars">
                 {[
                   { icon: '✓', label: 'Honest', desc: 'No paid promotions, no bias' },
-                  { icon: '✓', label: 'Funny', desc: "Howard's trademark dry wit" },
+                  { icon: '✓', label: 'Giraffes', desc: "Howard is a big fan of giraffes" },
                   { icon: '✓', label: 'Useful', desc: 'Real advice that saves money' },
                 ].map(p => (
                   <div className="pillar" key={p.label}>
