@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useReveal({ threshold = 0.12, rootMargin = '0px 0px -60px 0px' } = {}) {
+export function useReveal({ threshold = 0.01, rootMargin = '0px 0px 100px 0px' } = {}) {
   const ref = useRef(null);
   const [revealed, setRevealed] = useState(false);
 
