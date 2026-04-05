@@ -90,6 +90,10 @@
   color: #FF6B00;
 }
 
+.hero-title .accent-a {
+  color: #FF6B00;
+}
+
 .hero-tagline {
   font-family: 'Barlow', sans-serif;
   font-size: clamp(16px, 2vw, 20px);

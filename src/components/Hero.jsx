@@ -85,7 +85,7 @@ export default function Hero({ channelInfo }) {
       <div className={`hero-content ${visible ? 'visible' : ''}`}>
         <div className="hero-badge">Howard Ritchie&apos;s</div>
         <img src="/logo.jpg" alt="Cars Uncovered" className="hero-logo" />
-        <h1 className="hero-title">Cars<span className="accent">Uncovered</span></h1>
+        <h1 className="hero-title">C<span className="accent-a">A</span>RS<span className="accent">Uncovered</span></h1>
         <p className="hero-tagline">
           Honest reviews. Real drives. No bias. No faff.<br />
           Just the truth about your next car.

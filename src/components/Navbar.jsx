@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="nav-inner">
         <a href="#hero" className="nav-logo">
           <img src="/logo.jpg" alt="Cars Uncovered" />
-          <span>Cars Uncovered</span>
+          <span>C<span style={{color:'#FF6B00'}}>A</span>RS Uncovered</span>
         </a>
 
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
