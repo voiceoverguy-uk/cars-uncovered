@@ -38,7 +38,7 @@ A slick, modern website for Howard Ritchie's Cars Uncovered YouTube channel (41.
 ## Design Tokens
 
 - **Background**: `#0a0a0a`
-- **Accent**: `#FF6B00` (orange)
+- **Accent**: `#FF8110` (orange)
 - **White**: `#ffffff`
 - **Card bg**: `#141414`
 - **Font display**: Barlow Condensed (headings, labels)

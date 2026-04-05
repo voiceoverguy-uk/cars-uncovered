@@ -36,7 +36,7 @@
 }
 
 .contact-card:hover {
-  border-color: #FF6B00;
+  border-color: #FF8110;
   background: #1a1a1a;
   transform: translateX(4px);
 }
@@ -49,11 +49,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #FF6B00;
+  color: #FF8110;
 }
 
 .contact-card-icon.yt {
-  color: #FF6B00;
+  color: #FF8110;
 }
 
 .contact-card-info {
@@ -85,7 +85,7 @@
 }
 
 .contact-card:hover .contact-card-arrow {
-  color: #FF6B00;
+  color: #FF8110;
   transform: translateX(4px);
 }
 
@@ -145,7 +145,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: #FF6B00;
+  background: #FF8110;
   padding: 20px 24px;
   text-decoration: none;
   color: #fff;

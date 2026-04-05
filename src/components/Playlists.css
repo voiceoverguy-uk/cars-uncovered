@@ -18,7 +18,7 @@
 
 .playlist-block.accent .playlist-tag {
   color: #fff;
-  background: #FF6B00;
+  background: #FF8110;
   padding: 4px 10px;
   display: inline-block;
 }
@@ -29,7 +29,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #FF6B00;
+  color: #FF8110;
   margin-bottom: 12px;
 }
 
@@ -81,7 +81,7 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #FF6B00;
+  color: #FF8110;
   text-decoration: none;
   transition: gap 0.2s;
 }
@@ -140,7 +140,7 @@
 
 .video-card:hover .vc-play {
   background: rgba(0, 0, 0, 0.5);
-  color: #FF6B00;
+  color: #FF8110;
 }
 
 .vc-info {

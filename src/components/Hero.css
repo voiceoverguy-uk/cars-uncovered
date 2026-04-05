@@ -61,7 +61,7 @@
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #FF6B00;
+  color: #FF8110;
   margin-bottom: 16px;
 }
 
@@ -87,11 +87,11 @@
 
 .hero-title .accent {
   display: block;
-  color: #FF6B00;
+  color: #FF8110;
 }
 
 .hero-title .accent-a {
-  color: #FF6B00;
+  color: #FF8110;
 }
 
 .hero-tagline {
@@ -163,7 +163,7 @@
 .scroll-line {
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, #FF6B00, transparent);
+  background: linear-gradient(to bottom, #FF8110, transparent);
   animation: scrollPulse 2s ease infinite;
 }
 
