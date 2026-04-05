@@ -34,7 +34,7 @@ async function apiRequest(endpoint, params) {
 
 export async function getChannelInfo() {
   const data = await apiRequest('channels', {
-    part: 'snippet,statistics',
+    part: 'snippet,statistics,contentDetails',
     forHandle: CHANNEL_HANDLE
   });
   if (!data.items?.length) throw new Error('Channel not found');
