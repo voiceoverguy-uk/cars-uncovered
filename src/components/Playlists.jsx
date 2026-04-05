@@ -6,6 +6,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
   const CU_PLAYLIST_ID = 'PLbcF-Q38-czfGS4_xFdWReF6eP60a-LLV';
   const MW_PLAYLIST_ID = 'PLbcF-Q38-czfQOi9ERx-okrQHgedYqUBA';
   const [ref, revealed] = useReveal();
+  const [playingId, setPlayingId] = useState(null);
 
   const cuVideos = playlists?.carsUncovered || [];
   const mwVideos = playlists?.mostWanted || [];
@@ -28,6 +29,8 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
             tag="Full Series"
             meta={cuMeta}
             sectionRevealed={revealed}
+            playingId={playingId}
+            onPlay={setPlayingId}
           />
           <PlaylistBlock
             title="Most Wanted"
@@ -39,6 +42,8 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
             accent
             meta={mwMeta}
             sectionRevealed={revealed}
+            playingId={playingId}
+            onPlay={setPlayingId}
           />
         </div>
       </div>
@@ -46,7 +51,7 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
   );
 }
 
-function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta, sectionRevealed }) {
+function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta, sectionRevealed, playingId, onPlay }) {
   const ytUrl = `https://www.youtube.com/playlist?list=${playlistId}`;
   const itemCount = meta?.itemCount;
 
@@ -90,7 +95,7 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
               </div>
             ))
           : videos.length > 0
-            ? videos.map((v, i) => <VideoCard key={v.id} video={v} index={i} sectionRevealed={sectionRevealed} />)
+            ? videos.map((v, i) => <VideoCard key={v.id} video={v} index={i} sectionRevealed={sectionRevealed} playingId={playingId} onPlay={onPlay} />)
             : <FallbackCards playlistId={playlistId} />
         }
       </div>
@@ -98,8 +103,8 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
   );
 }
 
-function VideoCard({ video, index, sectionRevealed }) {
-  const [playing, setPlaying] = useState(false);
+function VideoCard({ video, index, sectionRevealed, playingId, onPlay }) {
+  const playing = playingId === video.id;
 
   return (
     <div
@@ -116,7 +121,7 @@ function VideoCard({ video, index, sectionRevealed }) {
             className="vc-iframe"
           />
         ) : (
-          <button className="vc-preview" onClick={() => setPlaying(true)}>
+          <button className="vc-preview" onClick={() => onPlay(video.id)}>
             <img src={video.thumbnailUrl} alt={video.title} loading="lazy" />
             <div className="vc-play">
               <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
