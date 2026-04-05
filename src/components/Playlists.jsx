@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import './Playlists.css';
 
@@ -52,8 +52,8 @@ export default function Playlists({ playlists, playlistMeta, loading }) {
 }
 
 function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, accent, meta, sectionRevealed, playingId, onPlay }) {
-  const ytUrl = `https://www.youtube.com/playlist?list=${playlistId}`;
   const itemCount = meta?.itemCount;
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div className={`playlist-block ${accent ? 'accent' : ''}`}>
@@ -75,13 +75,17 @@ function PlaylistBlock({ title, subtitle, videos, loading, playlistId, tag, acce
           </div>
         )}
 
-        <a href={ytUrl} target="_blank" rel="noopener noreferrer" className="playlist-view-all">
+        <button className="playlist-view-all" onClick={() => setModalOpen(true)}>
           View Full Playlist
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
-        </a>
+        </button>
       </div>
+
+      {modalOpen && (
+        <PlaylistModal playlistId={playlistId} title={title} onClose={() => setModalOpen(false)} />
+      )}
 
       <div className="video-grid">
         {loading
@@ -166,5 +170,41 @@ function FallbackCards({ playlistId }) {
         <span className="vc-date">Add your API key to see live content</span>
       </div>
     </a>
+  );
+}
+
+function PlaylistModal({ playlistId, title, onClose }) {
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <div className="playlist-modal-backdrop" onClick={onClose}>
+      <div className="playlist-modal-content" onClick={e => e.stopPropagation()}>
+        <div className="playlist-modal-header">
+          <span className="playlist-modal-title">{title}</span>
+          <button className="playlist-modal-close" onClick={onClose} aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div className="playlist-modal-player">
+          <iframe
+            src={`https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </div>
   );
 }
